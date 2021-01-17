@@ -19,7 +19,7 @@ public class PsqljwtApplication {
 		FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
 		AuthFilter authFilter = new AuthFilter();
 		registrationBean.setFilter(authFilter);
-		registrationBean.addUrlPatterns("/api/categories/*");
+		registrationBean.addUrlPatterns("/api/categories/*","/api/resourceserver");
 		return registrationBean;
 	}
 }     //To make basic auth tokens in the header and only the post method works condition. Go to filter file and create
