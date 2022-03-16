@@ -25,11 +25,11 @@ public class User {
         this.userId = userId;
     }
 
-    public String getFirstName() {
+    public String getDestinationNetworkId() {
         return destinationNetworkId;
     }
 
-    public void setFirstName(String destinationNetworkId) {
+    public void setDestinationNetworkId(String destinationNetworkId) {
         this.destinationNetworkId = destinationNetworkId;
     }
 
@@ -41,19 +41,19 @@ public class User {
         this.transferable = transferable;
     }
 
-    public String getLastName() {
+    public String getMetadata() {
         return metadata;
     }
 
-    public void setLastName(String metadata) {
+    public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
 
-    public String getEmail() {
+    public String getClientId() {
         return clientId;
     }
 
-    public void setEmail(String clientId) {
+    public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 

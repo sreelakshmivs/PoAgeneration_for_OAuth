@@ -18,10 +18,10 @@ import java.sql.Statement;
 public class UserRepositoryImpl implements UserRepository {
 
     private static final String SQL_CREATE = "INSERT INTO et_poa(USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable) VALUES(NEXTVAL('et_poa_SEQ'), ?, ?, ?, ?, ? )";
-    private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM et_poa WHERE clientId = ?";
+    private static final String SQL_COUNT_BY_CLIENTID = "SELECT COUNT(*) FROM et_poa WHERE clientId = ?";
     private static final String SQL_FIND_BY_ID = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable " +
             "FROM et_poa WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable " +
+    private static final String SQL_FIND_BY_CLIENTID = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable " +
             "FROM et_poa WHERE clientId = ?";
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -50,9 +50,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
     @Deprecated
     @Override
-    public User findByEmailAndPassword(String clientId, String password) throws EtAuthException {
+    public User findByClientidAndPassword(String clientId, String password) throws EtAuthException {
         try {
-            User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, new Object[]{clientId}, userRowMapper);
+            User user = jdbcTemplate.queryForObject(SQL_FIND_BY_CLIENTID, new Object[]{clientId}, userRowMapper);
             if(!BCrypt.checkpw(password, user.getPassword()))
                 throw new EtAuthException("Invalid clientId/password");
             return user;
@@ -62,8 +62,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
     @Deprecated
     @Override
-    public Integer  getCountByEmail(String clientId) {
-        return jdbcTemplate.queryForObject(SQL_COUNT_BY_EMAIL, new Object[]{clientId}, Integer.class);
+    public Integer getCountByClientId(String clientId) {
+        return jdbcTemplate.queryForObject(SQL_COUNT_BY_CLIENTID, new Object[]{clientId}, Integer.class);
     }
     @Deprecated
     @Override

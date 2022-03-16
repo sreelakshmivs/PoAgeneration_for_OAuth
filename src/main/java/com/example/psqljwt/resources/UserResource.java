@@ -54,9 +54,9 @@ public class UserResource {
                 .setIssuedAt(new Date(timestamp))
                 .setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY))
                 .claim("userId", user.getUserId())
-                .claim("clientId", user.getEmail())
-                .claim("destinationNetworkId", user.getFirstName())
-                .claim("metadata", user.getLastName())
+                .claim("clientId", user.getClientId())
+                .claim("destinationNetworkId", user.getDestinationNetworkId())
+                .claim("metadata", user.getMetadata())
                 .claim("transferable", user.getTransferable())
                 .compact(); //to store token variable as a string
         Map<String, String> map = new HashMap<>();

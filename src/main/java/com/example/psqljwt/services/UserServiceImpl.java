@@ -17,13 +17,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User validateUser(String clientId, String password) throws EtAuthException {
         if(clientId != null) clientId = clientId.toLowerCase();
-        return userRepository.findByEmailAndPassword(clientId, password);
+        return userRepository.findByClientidAndPassword(clientId, password);
     }
 
     @Override
     public User registerUser(String destinationNetworkId, String metadata, String clientId, String password, String transferable) throws EtAuthException {
         if(clientId != null) clientId = clientId.toLowerCase();
-        Integer count = userRepository.getCountByEmail(clientId);
+        Integer count = userRepository.getCountByClientId(clientId);
         if(count > 0)
             throw new EtAuthException("ClientId already in use");
         Integer userId = userRepository.create(destinationNetworkId, metadata, clientId, password, transferable);
