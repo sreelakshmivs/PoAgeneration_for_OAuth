@@ -21,11 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerUser(String destinationNetworkId, String metadata, String clientId, String password) throws EtAuthException {
+    public User registerUser(String destinationNetworkId, String metadata, String clientId, String password, String transferable) throws EtAuthException {
         if(clientId != null) clientId = clientId.toLowerCase();
         Integer count = userRepository.getCountByEmail(clientId);
         if(count > 0)
             throw new EtAuthException("ClientId already in use");
-        Integer userId = userRepository.create(destinationNetworkId, metadata, clientId, password);
+        Integer userId = userRepository.create(destinationNetworkId, metadata, clientId, password, transferable);
         return userRepository.findById(userId);    }
 }

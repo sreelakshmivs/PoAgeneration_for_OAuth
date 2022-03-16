@@ -40,7 +40,8 @@ public class UserResource {
         String metadata = (String) userMap.get("metadata"); //lname
         String clientId = (String) userMap.get("clientId"); //email
         String password = (String) userMap.get("password"); //password
-        User user = userService.registerUser(destinationNetworkId, metadata, clientId, password);
+        String transferable = (String) userMap.get("transferable");
+        User user = userService.registerUser(destinationNetworkId, metadata, clientId, password, transferable);
         //Map<String, String> map = new HashMap<>();
         //map.put("message", "registered successfully");
 
@@ -56,6 +57,7 @@ public class UserResource {
                 .claim("clientId", user.getEmail())
                 .claim("destinationNetworkId", user.getFirstName())
                 .claim("metadata", user.getLastName())
+                .claim("transferable", user.getTransferable())
                 .compact(); //to store token variable as a string
         Map<String, String> map = new HashMap<>();
         map.put("token", token);

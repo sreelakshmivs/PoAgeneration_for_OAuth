@@ -17,17 +17,17 @@ import java.sql.Statement;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private static final String SQL_CREATE = "INSERT INTO et_poa(USER_ID, destinationNetworkId, metadata, clientId, PASSWORD) VALUES(NEXTVAL('et_poa_SEQ'), ?, ?, ?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO et_poa(USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable) VALUES(NEXTVAL('et_poa_SEQ'), ?, ?, ?, ?, ? )";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM et_poa WHERE clientId = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD " +
+    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable " +
             "FROM et_poa WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD " +
+    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD, transferable " +
             "FROM et_poa WHERE clientId = ?";
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Integer create(String destinationNetworkId, String metadata, String clientId, String password) throws EtAuthException {
+    public Integer create(String destinationNetworkId, String metadata, String clientId, String password, String transferable) throws EtAuthException {
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
@@ -40,6 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
                 ps.setString(2, metadata);
                 ps.setString(3, clientId);
                 ps.setString(4, hashedPassword);
+                ps.setString(5, transferable);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("USER_ID");
@@ -74,6 +75,7 @@ public class UserRepositoryImpl implements UserRepository {
                 rs.getString("destinationNetworkId"),
                 rs.getString("metadata"),
                 rs.getString("clientId"),
-                rs.getString("PASSWORD"));
+                rs.getString("PASSWORD"),
+                rs.getString("transferable"));
     });
 }
