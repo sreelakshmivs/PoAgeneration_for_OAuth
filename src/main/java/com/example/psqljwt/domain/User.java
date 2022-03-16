@@ -2,14 +2,14 @@ package com.example.psqljwt.domain;
 
 public class User {
     private Integer userId;
-    private String resourceServerId;
+    private String destinationNetworkId;
     private String metadata;
     private String clientId;   //important one like username
     private String password;
 //Add two more parameters clientid and poa for OAuth implementation
-    public User(Integer userId, String resourceServerId, String metadata, String clientId, String password) {
+    public User(Integer userId, String destinationNetworkId, String metadata, String clientId, String password) {
         this.userId = userId;
-        this.resourceServerId = resourceServerId;
+        this.destinationNetworkId = destinationNetworkId;
         this.metadata = metadata;
         this.clientId = clientId;
         this.password = password;
@@ -24,11 +24,11 @@ public class User {
     }
 
     public String getFirstName() {
-        return resourceServerId;
+        return destinationNetworkId;
     }
 
-    public void setFirstName(String resourceServerId) {
-        this.resourceServerId = resourceServerId;
+    public void setFirstName(String destinationNetworkId) {
+        this.destinationNetworkId = destinationNetworkId;
     }
 
     public String getLastName() {

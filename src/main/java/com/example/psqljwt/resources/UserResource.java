@@ -36,11 +36,11 @@ public class UserResource {
 
     @PostMapping("/client") //register
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
-        String resourceServerId = (String) userMap.get("resourceServerId"); //fname
+        String destinationNetworkId = (String) userMap.get("destinationNetworkId"); //fname
         String metadata = (String) userMap.get("metadata"); //lname
         String clientId = (String) userMap.get("clientId"); //email
         String password = (String) userMap.get("password"); //password
-        User user = userService.registerUser(resourceServerId, metadata, clientId, password);
+        User user = userService.registerUser(destinationNetworkId, metadata, clientId, password);
         //Map<String, String> map = new HashMap<>();
         //map.put("message", "registered successfully");
 
@@ -54,7 +54,7 @@ public class UserResource {
                 .setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY))
                 .claim("userId", user.getUserId())
                 .claim("clientId", user.getEmail())
-                .claim("resourceServerId", user.getFirstName())
+                .claim("destinationNetworkId", user.getFirstName())
                 .claim("metadata", user.getLastName())
                 .compact(); //to store token variable as a string
         Map<String, String> map = new HashMap<>();

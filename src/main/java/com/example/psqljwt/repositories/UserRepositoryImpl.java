@@ -17,17 +17,17 @@ import java.sql.Statement;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private static final String SQL_CREATE = "INSERT INTO et_poa(USER_ID, resourceServerId, metadata, clientId, PASSWORD) VALUES(NEXTVAL('et_poa_SEQ'), ?, ?, ?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO et_poa(USER_ID, destinationNetworkId, metadata, clientId, PASSWORD) VALUES(NEXTVAL('et_poa_SEQ'), ?, ?, ?, ?)";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM et_poa WHERE clientId = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, resourceServerId, metadata, clientId, PASSWORD " +
+    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD " +
             "FROM et_poa WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, resourceServerId, metadata, clientId, PASSWORD " +
+    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, destinationNetworkId, metadata, clientId, PASSWORD " +
             "FROM et_poa WHERE clientId = ?";
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Integer create(String resourceServerId, String metadata, String clientId, String password) throws EtAuthException {
+    public Integer create(String destinationNetworkId, String metadata, String clientId, String password) throws EtAuthException {
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
@@ -36,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, resourceServerId);
+                ps.setString(1, destinationNetworkId);
                 ps.setString(2, metadata);
                 ps.setString(3, clientId);
                 ps.setString(4, hashedPassword);
@@ -71,7 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
     private RowMapper<User> userRowMapper = ((rs, rowNum) -> {
         return new User(rs.getInt("USER_ID"),
-                rs.getString("resourceServerId"),
+                rs.getString("destinationNetworkId"),
                 rs.getString("metadata"),
                 rs.getString("clientId"),
                 rs.getString("PASSWORD"));

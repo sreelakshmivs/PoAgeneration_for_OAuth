@@ -6,6 +6,6 @@ import com.example.psqljwt.exceptions.EtAuthException;
 public interface UserService {
     User validateUser(String clientId, String password) throws EtAuthException;
 
-    User registerUser(String resourceServerId, String metadata, String clientId, String password) throws EtAuthException;
+    User registerUser(String destinationNetworkId, String metadata, String clientId, String password) throws EtAuthException;
 
 }
