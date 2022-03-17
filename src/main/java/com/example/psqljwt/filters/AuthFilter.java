@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+//:::::::::::::NOT NEEDED CLASS FILE. MAY BE USEFUL FOR OTHER THINGS:::JUST KEEPING:::::::::::::::
+
+
 //Filters are used to intercept a req. We have to filter all our urls.
 public class AuthFilter extends GenericFilterBean {
     @Override

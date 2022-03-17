@@ -14,6 +14,7 @@ public class PsqljwtApplication {
 	}
 
 	//For protecting urls : all urls starting with /api/categories need token in its header
+	/* //Uncomment this while using filterbean
 	@Bean
 	public FilterRegistrationBean<AuthFilter> filterRegistrationBean() {
 		FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
@@ -21,7 +22,7 @@ public class PsqljwtApplication {
 		registrationBean.setFilter(authFilter);
 		registrationBean.addUrlPatterns("/api/categories/*","/api/resourceserver");
 		return registrationBean;
-	}
+	}*/
 }     //To make basic auth tokens in the header and only the post method works condition. Go to filter file and create
 //another method which splits with "basis" not "bearer"
 

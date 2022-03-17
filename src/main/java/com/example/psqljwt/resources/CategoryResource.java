@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-
+//::::::::::::::NO NEED OF THIS CLASS FILE::::::::JUST KEEPING::::::::::
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryResource {

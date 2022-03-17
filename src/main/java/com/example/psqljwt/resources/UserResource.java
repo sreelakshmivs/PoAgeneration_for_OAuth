@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/subcontractor")
 public class UserResource {
 
     @Autowired
@@ -34,7 +34,7 @@ public class UserResource {
         return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
     }
 
-    @PostMapping("/client") //register
+    @PostMapping("/poa-subcontractor") //register
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
         String destinationNetworkId = (String) userMap.get("destinationNetworkId"); //fname
         String metadata = (String) userMap.get("metadata"); //lname
