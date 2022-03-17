@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/subcontractor")
-public class UserResource {
+public class UserController {
 
     @Autowired
     UserService userService;
